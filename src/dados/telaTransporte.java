@@ -1,6 +1,4 @@
-package aplicacao;
-
-import dados.*;
+package dados;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

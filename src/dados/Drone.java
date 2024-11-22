@@ -43,4 +43,7 @@ public abstract class Drone {
                 getCustoFixo(),
                 getAutonomia());
     }
+    public String geraCSV(){
+        return String.format("%d;%.2f;%.2f",getCodigo(),getCustoFixo(),getAutonomia());
+    }
 }

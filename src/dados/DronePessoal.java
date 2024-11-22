@@ -19,7 +19,7 @@ public class DronePessoal extends Drone {
 
     @Override
     public double calculaCustoKm() {
-        return 0;
+        return getQuantidaMaximaPessoas() * 2;
     }
 
     @Override
@@ -27,4 +27,10 @@ public class DronePessoal extends Drone {
         return String.format("dados.Drone Pessoal\n%s\nQuantida máxima de pessoas: %d\n\n",
                 super.toString(),
                 getQuantidaMaximaPessoas());
-    }}
+    }
+
+    public String geraCSV(){
+        return String.format("1;%s;%d",super.geraCSV(),getQuantidaMaximaPessoas());
+    }
+}
+

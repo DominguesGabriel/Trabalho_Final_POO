@@ -1,6 +1,4 @@
-package aplicacao;
-
-import dados.Administracao;
+package dados;
 
 import javax.swing.*;
 
