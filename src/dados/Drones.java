@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 public class Drones {
     private ArrayList<Drone> drones;
+
     public Drones() {
         drones = new ArrayList<Drone>();
     }
