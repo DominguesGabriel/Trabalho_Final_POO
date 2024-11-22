@@ -20,6 +20,16 @@ public class DroneCargaInanimada extends DroneCarga {
 
     @Override
     public String toString() {
-        return super.toString()+"\nProteção: " + protecao +"\nCusto por Km (R$): " + calculaCustoKm();
+        return String.format("Drone Carga Inanimada\n%s\nProteção: %b\n\n",
+                super.toString(),
+                getProtecao());
+    }
+
+    public String geraCSV(){
+        return String.format("2;%s;%b",super.geraCSV(),getProtecao());
+    }
+
+    public boolean getProtecao() {
+        return protecao;
     }
 }

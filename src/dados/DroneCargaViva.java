@@ -18,8 +18,19 @@ public class DroneCargaViva extends DroneCarga {
         return getCustoFixo() + variavel;
     }
 
+
     @Override
     public String toString() {
-        return super.toString()+"\nClimatizado: " + climatizado + "\nCusto por Km (R$): " + calculaCustoKm();
+        return String.format("Drone Carga Viva\n%s\nClimatizado: %b\n\n",
+                super.toString(),
+                getClimatizado());
+    }
+
+    public String geraCSV(){
+        return String.format("3;%s;%b",super.geraCSV(),getClimatizado());
+    }
+
+    public boolean getClimatizado() {
+        return climatizado;
     }
 }

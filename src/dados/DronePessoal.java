@@ -24,7 +24,7 @@ public class DronePessoal extends Drone {
 
     @Override
     public String toString() {
-        return String.format("dados.Drone Pessoal\n%s\nQuantida máxima de pessoas: %d\n\n",
+        return String.format("Drone Pessoal\n%s\nQuantida máxima de pessoas: %d\n\n",
                 super.toString(),
                 getQuantidaMaximaPessoas());
     }

@@ -10,6 +10,18 @@ public abstract class DroneCarga extends Drone {
 
     @Override
     public String toString() {
-        return super.toString() + "\nPeso Máximo (Kg): "+ pesoMaximo;
+        return String.format("%s\nPeso máximo: %.2f\n\n",
+                super.toString(),
+                getPesoMaximo());
+    }
+
+
+
+    public String geraCSV(){
+        return String.format("%s;%.2f",super.geraCSV(),getPesoMaximo());
+    }
+
+    public double getPesoMaximo() {
+        return pesoMaximo;
     }
 }

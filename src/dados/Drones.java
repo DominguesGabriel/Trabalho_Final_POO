@@ -37,15 +37,22 @@ public class Drones {
     public String imprimirDrones(){
         StringBuilder sb = new StringBuilder();
 
-
         if(drones.isEmpty()) {
             return "Não há drones cadastrados.";
         }
 
         for(Drone drone : drones){
             if(drone instanceof DronePessoal){
-                sb.append(drone.toString()).append("\n");
+                sb.append(((DronePessoal)drone).toString()).append("\n");
             }
+            else if(drone instanceof DroneCargaViva){
+                sb.append(((DroneCargaViva)drone).toString()).append("\n");
+            }
+            else if (drone instanceof DroneCargaInanimada) {
+                sb.append(((DroneCargaInanimada)drone).toString()).append("\n");
+            }
+
+
         }
 
         return sb.toString();
