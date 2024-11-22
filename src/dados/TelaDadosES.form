@@ -15,7 +15,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="f62f3" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="f62f3" class="javax.swing.JTextArea" binding="areaTexto">
             <constraints/>
             <properties/>
           </component>
@@ -58,7 +58,7 @@
           <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="88fb6" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="88fb6" class="javax.swing.JTextField" binding="nomeArquivo">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="10" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
