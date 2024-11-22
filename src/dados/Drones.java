@@ -51,10 +51,7 @@ public class Drones {
             else if (drone instanceof DroneCargaInanimada) {
                 sb.append(((DroneCargaInanimada)drone).toString()).append("\n");
             }
-
-
         }
-
         return sb.toString();
     }
 

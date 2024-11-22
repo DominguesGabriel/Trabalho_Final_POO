@@ -32,6 +32,7 @@ public class ACMEAirDrones {
         Locale.setDefault(Locale.ENGLISH);
         leLinhasTexto();
         new JanelaCadastroDP(drones);
+        fecharArquivo();
     }
 
     public void leLinhasTexto() {
@@ -39,6 +40,9 @@ public class ACMEAirDrones {
         try (BufferedReader reader = Files.newBufferedReader(path, Charset.defaultCharset())) {
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.startsWith("tipo")) {
+                    continue; // Ignora o cabeçalho
+                }
                 cadastrarDrone(line);
             }
         } catch (Exception e) {
@@ -64,7 +68,7 @@ public class ACMEAirDrones {
                 // Drone de Carga Inanimada
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
-                int pesoMaximo  = Integer.parseInt(dados[4]);
+                double pesoMaximo  = Double.parseDouble(dados[4]);
                 boolean protecao = Boolean.parseBoolean(dados[5]);
                 DroneCargaInanimada droneCargaInanimada = new DroneCargaInanimada(codigo, custoFixo, autonomia, pesoMaximo,protecao);
                 drones.addDrone(droneCargaInanimada);
@@ -73,7 +77,7 @@ public class ACMEAirDrones {
                 //Drone de Carva Viva
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
-                int pesoMaximo  = Integer.parseInt(dados[4]);
+                double pesoMaximo  = Double.parseDouble(dados[4]);
                 boolean climatizado = Boolean.parseBoolean(dados[5]);
                 DroneCargaViva droneCargaViva = new DroneCargaViva(codigo, custoFixo, autonomia, pesoMaximo,climatizado);
                 drones.addDrone(droneCargaViva);
@@ -81,12 +85,15 @@ public class ACMEAirDrones {
 
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-
+            writer.printf("Erro: Dados insuficientes na linha '%s'%n", line);
         } catch (NumberFormatException e) {
-
+            writer.printf("Erro: Formato numérico inválido na linha '%s'%n", line);
         } catch (Exception e) {
-
+            writer.printf("Erro inesperado ao processar a linha '%s': %s%n", line, e.getMessage());
         }
+    }
+    private void fecharArquivo() {
+        writer.close();
     }
 
 }
