@@ -23,6 +23,7 @@ public boolean addTransporte(Transporte t) {
     t.setSituacao(Estado.PENDENTE);
     return resp;
 }
+
 public ArrayList<Transporte> getLista() {
     return lista;
 }

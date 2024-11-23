@@ -1,5 +1,7 @@
 package dados;
 
+import java.util.ArrayList;
+
 public abstract class Transporte {
 
 	private int numero;
@@ -39,6 +41,9 @@ public abstract class Transporte {
 	public void setSituacao(Estado situacao) {
 		this.situacao = situacao;
 	}
+
+	public Estado getSituacao() {return situacao;}
+
 	public double getPeso(){
 		return peso;
 	}
@@ -77,6 +82,7 @@ public abstract class Transporte {
 
 		return raioTerraKm * c;
 	}
+
 
 	public String toString() {
 		return String.format("""
