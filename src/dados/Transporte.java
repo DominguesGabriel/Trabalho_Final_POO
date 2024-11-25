@@ -95,7 +95,7 @@ public abstract class Transporte {
 				LatitudeDestino: %.2f
 				LongitudeOrigem: %.2f
 				LongitudeDestino: %.2f
-				Situacao: %s
+				Situação: %s
 				
 				""",peso, numero,nomeCliente,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,situacao);
 	}

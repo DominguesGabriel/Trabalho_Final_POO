@@ -58,7 +58,7 @@ public class TelaGerenciamentoTransporte {
                             return;
                     }
 
-                    areaTexto.setText("Situação do transporte alterada com sucesso! Nova situação: " + t.getSituacao());
+                    areaTexto.setText("Situação do transporte "+ t.getNumero() +" alterada com sucesso! Nova situação: " + t.getSituacao());
                 } catch (NumberFormatException ex) {
                     areaTexto.setText("Número inválido! Digite um código numérico.");
                 }
@@ -69,6 +69,25 @@ public class TelaGerenciamentoTransporte {
             @Override
             public void actionPerformed(ActionEvent e) {
                 janela.setVisible(false); // Fecha a janela ao clicar no botão "Voltar"
+            }
+        });
+
+        processarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder sb = new StringBuilder();
+
+                for (Transporte t : adm.getLista()) {
+                    if (t.getSituacao().equals(Estado.PENDENTE)) {
+                        sb.append(t.toString()).append("\n");
+                    }
+                }
+
+                if (sb.length() == 0) {
+                    areaTexto.setText("Nenhum transporte com a situação PENDENTE.");
+                } else {
+                    areaTexto.setText(sb.toString());
+                }
             }
         });
 
