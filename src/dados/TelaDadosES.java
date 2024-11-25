@@ -20,16 +20,17 @@ public class TelaDadosES {
     private JButton carregarDadosButton;
     private JTextField nomeArquivo;
     private JButton voltar;
+    private JPanel painel;
     private PrintWriter writer;
     private Drones drones;
     private Administracao transportes;
 
-    public TelaDadosES() {
+    public TelaDadosES(Drones drones, Administracao adm, JanelaDadosES janela) {
         areaTexto.setEditable(false);
         areaTexto.setLineWrap(true);        // Habilita a quebra de linha automática
         areaTexto.setWrapStyleWord(true);   // Faz com que a quebra seja entre palavras
         Locale.setDefault(Locale.ENGLISH);
-        drones = new Drones();
+        this.drones = drones;
 
         salvarDadosButton.addActionListener(new ActionListener() {
             @Override
@@ -74,6 +75,14 @@ public class TelaDadosES {
                     areaTexto.setForeground(Color.RED);
                     areaTexto.append("Erro ao salvar os dados: " + exception.getMessage() + "\n");
                 }
+                //leLinhasTexto();
+                fecharArquivo();
+            }
+        });
+        voltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                janela.setVisible(false);
             }
         });
     }
@@ -143,6 +152,10 @@ public class TelaDadosES {
             areaTexto.setForeground(Color.RED);
             areaTexto.append("Erro ao carregar os dados do arquivo: " + e.getMessage() + "\n");
         }
+    }
+
+    public JPanel getPainel() {
+        return painel;
     }
 
 }
