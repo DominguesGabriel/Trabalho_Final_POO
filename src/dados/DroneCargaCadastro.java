@@ -16,11 +16,11 @@ public class DroneCargaCadastro {
     private JRadioButton protecao;
     private JButton dados;
     private JButton limpar;
-    private JButton sair;
+    private JButton voltar;
     private JPanel painel;
     private JScrollPane scroll;
 
-    public DroneCargaCadastro(Drones base) {
+    public DroneCargaCadastro(Drones base, JanelaCadastroDC janela) {
 
         ButtonGroup tipoGrupo = new ButtonGroup();
         tipoGrupo.add(cargaViva);
@@ -90,10 +90,10 @@ public class DroneCargaCadastro {
             }
         });
 
-        sair.addActionListener(new ActionListener() {
+        voltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                janela.setVisible(false);
             }
         });
 

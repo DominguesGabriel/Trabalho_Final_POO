@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class TelaGerenciamentoTransporte {
     private Administracao adm;
-    private JPanel panel1;
+    private JPanel painel;
     private JButton processarButton;
     private JTextField textField1;
     private JButton alterarSituacaoButton;
@@ -14,7 +14,7 @@ public class TelaGerenciamentoTransporte {
     private JTextArea areaTexto;
     private JComboBox selecionaEstadoTransporte;
 
-    public TelaGerenciamentoTransporte() {
+    public TelaGerenciamentoTransporte(Administracao adm, JanelaGerencTransporte janela) {
 
         alterarSituacaoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +56,12 @@ public class TelaGerenciamentoTransporte {
                 }
             }
         });
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                janela.setVisible(false);
+            }
+        });
     }
     public Transporte buscarTransportePorCodigo(int numero){
         for(Transporte t : adm.getLista()) {
@@ -64,5 +70,9 @@ public class TelaGerenciamentoTransporte {
             }
         }
         return null;
+    }
+
+    public JPanel getPainel() {
+        return painel;
     }
 }

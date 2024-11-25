@@ -14,10 +14,10 @@ public class TelaDronePessoal {
     private JTextField quantidadeText;
     private JButton limparButton;
     private JButton mostrarDronesButton;
-    private JButton encerrarButton;
+    private JButton voltarButton;
     private JPanel painel;
 
-    public TelaDronePessoal(Drones drones) {
+    public TelaDronePessoal(Drones drones, JanelaCadastroDP janela) {
         mensagemArea.setEditable(false);
         mensagemArea.setLineWrap(true);        // Habilita a quebra de linha automática
         mensagemArea.setWrapStyleWord(true);   // Faz com que a quebra seja entre palavras
@@ -76,10 +76,10 @@ public class TelaDronePessoal {
             }
         });
 
-        encerrarButton.addActionListener(new ActionListener() {
+        voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                janela.setVisible(false);
             }
         });
         limparButton.addActionListener(new ActionListener() {

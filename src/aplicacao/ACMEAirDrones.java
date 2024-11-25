@@ -1,10 +1,6 @@
 package aplicacao;
-import dados.Drone;
-import dados.DronePessoal;
-import dados.Drones;
-import dados.JanelaCadastroDP;
-import dados.DroneCargaInanimada;
-import dados.DroneCargaViva;
+import dados.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
@@ -16,13 +12,13 @@ import java.util.Locale;
 
 public class ACMEAirDrones {
     private Drones drones;
+    private Administracao adm;
     private PrintWriter writer;
 
-    public ACMEAirDrones() {
-        drones = new Drones();
-    }
     public void executar(){
-        new JanelaCadastroDP(drones);
+        drones = new Drones();
+        adm = new Administracao();
+        new JanelaPrincipal(drones, adm);
     }
 }
 

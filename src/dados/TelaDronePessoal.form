@@ -104,12 +104,12 @@
           <text value="Mostrar drones"/>
         </properties>
       </component>
-      <component id="625f1" class="javax.swing.JButton" binding="encerrarButton" default-binding="true">
+      <component id="625f1" class="javax.swing.JButton" binding="voltarButton">
         <constraints>
           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Encerrar"/>
+          <text value="Voltar"/>
         </properties>
       </component>
     </children>

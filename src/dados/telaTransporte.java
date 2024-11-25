@@ -10,7 +10,7 @@ public class telaTransporte {
     private JTextArea campoMensagem;
     private JButton LIMPARButton;
     private JButton DADOSButton;
-    private JButton SAIRButton;
+    private JButton voltarButton;
     private JComboBox tipoTransporte;
     private JTextField textFieldPeso;
     private JTextField textFieldNumero;
@@ -30,7 +30,7 @@ public class telaTransporte {
     private JCheckBox falseCheckBox;
 
 
-    public telaTransporte (Administracao adm) {
+    public telaTransporte (Administracao adm, JanelaTransporte janela) {
 
 
 
@@ -102,10 +102,10 @@ public class telaTransporte {
 
             }
         });
-        SAIRButton.addActionListener(new ActionListener() {
+        voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                janela.setVisible(false);
             }
         });
         LIMPARButton.addActionListener(new ActionListener() {
