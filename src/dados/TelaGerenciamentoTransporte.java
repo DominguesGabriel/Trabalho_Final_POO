@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaGerenciamentoTransporte {
-    private Administracao adm;
+    private Administracao adm; // Variável de instância para armazenar a administração
     private JPanel painel;
     private JButton processarButton;
     private JTextField textField1;
@@ -14,59 +14,96 @@ public class TelaGerenciamentoTransporte {
     private JTextArea areaTexto;
     private JComboBox selecionaEstadoTransporte;
 
+
     public TelaGerenciamentoTransporte(Administracao adm, JanelaGerencTransporte janela) {
+        this.adm = adm;
 
         alterarSituacaoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try{
-                int numero = Integer.parseInt(textField1.getText());
-                Transporte t = buscarTransportePorCodigo(numero);
-                if(t == null){
-                    areaTexto.setText("Transporte não encontrado!");
-                }
-                areaTexto.setText("Dados do Transporte:\n" +
-                        "Código: " + t.getNumero() + "\n" +
-                        "Situação Atual: " + t.getSituacao());
+                try {
+                    int numero = Integer.parseInt(textField1.getText());
+                    Transporte t = buscarTransportePorCodigo(numero);
 
-                if(t.getSituacao().equals(Estado.TERMINADO) || t.getSituacao().equals(Estado.CANCELADO)){
-                    areaTexto.setText("Não é possível alterar um transporte TERMINADO ou CANCELADO!");
-                    return;
-                }
-                switch (selecionaEstadoTransporte.getSelectedItem().toString()) {
-                    case "Pendente":
-                        t.setSituacao(Estado.PENDENTE);
-                        break;
-                    case "Alocado":
-                        t.setSituacao(Estado.ALOCADO);
-                        break;
-                    case "Terminado":
-                        t.setSituacao(Estado.TERMINADO);
-                        break;
-                    case "Cancelado":
-                        t.setSituacao(Estado.CANCELADO);
-                        break;
-                    default:
-                        areaTexto.append("\nEstado inválido!");
+                    if (t == null) {
+                        areaTexto.setText("Transporte não encontrado!");
                         return;
-                }
+                    }
 
-                areaTexto.setText("Situação do transporte alterada com sucesso! Nova situação: " + t.getSituacao() );
-            }catch(NumberFormatException ex){
+
+                    areaTexto.setText("Dados do Transporte:\n" +
+                            "Código: " + t.getNumero() + "\n" +
+                            "Situação Atual: " + t.getSituacao());
+
+
+                    if (t.getSituacao().equals(Estado.TERMINADO) || t.getSituacao().equals(Estado.CANCELADO)) {
+                        areaTexto.setText("Não é possível alterar um transporte TERMINADO ou CANCELADO!");
+                        return;
+                    }
+
+                    switch (selecionaEstadoTransporte.getSelectedItem().toString().trim()) {
+                        case "Pendente":
+                            t.setSituacao(Estado.PENDENTE);
+                            break;
+                        case "Alocado":
+                            t.setSituacao(Estado.ALOCADO);
+                            break;
+                        case "Terminado":
+                            t.setSituacao(Estado.TERMINADO);
+                            break;
+                        case "Cancelado":
+                            t.setSituacao(Estado.CANCELADO);
+                            break;
+                        default:
+                            areaTexto.append("\nEstado inválido!");
+                            return;
+                    }
+
+                    areaTexto.setText("Situação do transporte "+ t.getNumero() +" alterada com sucesso! Nova situação: " + t.getSituacao());
+                } catch (NumberFormatException ex) {
                     areaTexto.setText("Número inválido! Digite um código numérico.");
                 }
             }
         });
+
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                janela.setVisible(false);
+                janela.setVisible(false); // Fecha a janela ao clicar no botão "Voltar"
             }
         });
+
+        processarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder sb = new StringBuilder();
+
+                for (Transporte t : adm.getLista()) {
+                    if (t.getSituacao().equals(Estado.PENDENTE)) {
+                        sb.append(t.toString()).append("\n");
+                    }
+                }
+
+                if (sb.length() == 0) {
+                    areaTexto.setText("Nenhum transporte com a situação PENDENTE.");
+                } else {
+                    areaTexto.setText(sb.toString());
+                }
+            }
+        });
+
+
     }
-    public Transporte buscarTransportePorCodigo(int numero){
-        for(Transporte t : adm.getLista()) {
-            if(t.getNumero() == numero){
-                return t;
+
+
+    public Transporte buscarTransportePorCodigo(int numero) {
+        if (adm == null) { // Verifica se a administração foi inicializada
+            throw new IllegalStateException("A instância de Administracao não foi inicializada.");
+        }
+
+
+        for (Transporte t : adm.getLista()) {
+            if (t.getNumero() == numero) {
+                return t; // Retorna o transporte encontrado
             }
         }
         return null;
