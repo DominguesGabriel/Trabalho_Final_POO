@@ -25,12 +25,13 @@ public class TelaDadosES {
     private Drones drones;
     private Administracao transportes;
 
-    public TelaDadosES(Drones drones, Administracao adm, JanelaDadosES janela) {
+    public TelaDadosES(Drones drones, Administracao transportes, JanelaDadosES janela) {
         areaTexto.setEditable(false);
         areaTexto.setLineWrap(true);        // Habilita a quebra de linha automática
         areaTexto.setWrapStyleWord(true);   // Faz com que a quebra seja entre palavras
         Locale.setDefault(Locale.ENGLISH);
         this.drones = drones;
+        this.transportes = transportes;
 
         salvarDadosButton.addActionListener(new ActionListener() {
             @Override
