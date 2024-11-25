@@ -60,10 +60,10 @@
         <properties>
           <model>
             <item value="Selecionar"/>
-            <item value="PENDENTE"/>
-            <item value="ALOCADO"/>
-            <item value="TERMINADO"/>
-            <item value="CANCELADO"/>
+            <item value="Pendente"/>
+            <item value="Alocado"/>
+            <item value="Terminado"/>
+            <item value="Cancelado"/>
           </model>
         </properties>
       </component>
