@@ -24,4 +24,19 @@ public class TransporteCargaViva extends Transporte {
 	public double calculaCusto() {
 		return 0;
 	}
+
+	public String geraCSV(){
+		return String.format("3;%s;%.2f;%.2f",super.geraCSV(),getTemperaturaMinima(),getTemperaturaMaxima());
+	}
+
+	public double getTemperaturaMinima() {
+		return temperaturaMinima;
+	}
+
+	public double getTemperaturaMaxima() {
+		return temperaturaMaxima;
+	}
+
 }
+
+

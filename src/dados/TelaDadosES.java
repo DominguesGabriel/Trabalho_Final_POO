@@ -1,6 +1,7 @@
 package dados;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ public class TelaDadosES {
     private JButton voltar;
     private PrintWriter writer;
     private Drones drones;
+    private Administracao transportes;
 
     public TelaDadosES() {
         areaTexto.setEditable(false);
@@ -33,21 +35,55 @@ public class TelaDadosES {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeArquivo.getText();
-                try {
-                    Path path = Paths.get(nome+".csv");
-                    BufferedWriter bw = Files.newBufferedWriter(path, Charset.defaultCharset());
-                    writer = new PrintWriter(bw);
-                } catch (Exception exception) {
-                    writer.printf("Erro ao criar o arquivo: " + exception.getMessage());
+                if (nome.trim().isEmpty()) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: Por favor, insira o nome do arquivo.\n");
+                    return;
                 }
-                //leLinhasTexto();
-                fecharArquivo();
+                if (!nome.matches("[a-zA-Z0-9._-]+")) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: O nome do arquivo contém caracteres inválidos.\n");
+                    return;
+                }
+
+                Path path = Paths.get(nome + ".csv");
+                if (Files.exists(path)) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: O arquivo já existe. Escolha outro nome ou exclua o arquivo.\n");
+                    return;
+                }
+
+                try (BufferedWriter bw = Files.newBufferedWriter(path, Charset.defaultCharset());
+                     PrintWriter writer = new PrintWriter(bw)) {  // Criado dentro do try-with-resources
+
+                    writer.println("DRONES");
+                    writer.println("tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado\n");
+                    for (Drone drone : drones.getListaDrones()) {
+                        writer.println(drone.geraCSV());
+                    }
+                    writer.println("TRANSPORTES");
+                    writer.println("tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax\n");
+                    for (Transporte t : transportes.getLista()) {
+                        writer.println(t.geraCSV());
+                    }
+
+                    areaTexto.setForeground(Color.GREEN);
+                    areaTexto.append("Dados salvos com sucesso no arquivo: " + nome + ".csv\n");
+
+                } catch (Exception exception) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro ao salvar os dados: " + exception.getMessage() + "\n");
+                }
             }
         });
     }
     private void fecharArquivo() {
-        writer.close();
+        if (writer != null) {
+            writer.close();
+            writer = null; // Limpa a referência para evitar reutilização
+        }
     }
+
 
     public void SalvarDrone(String line) {
         try {
@@ -59,41 +95,41 @@ public class TelaDadosES {
                 // Drone Pessoal
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
-                int quantidadeMaximaPessoas  = Integer.parseInt(dados[4]);
+                int quantidadeMaximaPessoas = Integer.parseInt(dados[4]);
                 DronePessoal dronePessoal = new DronePessoal(codigo, custoFixo, autonomia, quantidadeMaximaPessoas);
                 drones.addDrone(dronePessoal);
-                writer.println(dronePessoal.geraCSV());
+                areaTexto.append("Drone Pessoal salvo: " + dronePessoal.geraCSV() + "\n");
             } else if (tipo == 2) {
                 // Drone de Carga Inanimada
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
-                double pesoMaximo  = Double.parseDouble(dados[4]);
+                double pesoMaximo = Double.parseDouble(dados[4]);
                 boolean protecao = Boolean.parseBoolean(dados[5]);
-                DroneCargaInanimada droneCargaInanimada = new DroneCargaInanimada(codigo, custoFixo, autonomia, pesoMaximo,protecao);
+                DroneCargaInanimada droneCargaInanimada = new DroneCargaInanimada(codigo, custoFixo, autonomia, pesoMaximo, protecao);
                 drones.addDrone(droneCargaInanimada);
-                writer.println(droneCargaInanimada.geraCSV());
+                areaTexto.append("Drone Carga Inanimada salvo: " + droneCargaInanimada.geraCSV() + "\n");
             } else if (tipo == 3) {
-                //Drone de Carva Viva
+                // Drone de Carga Viva
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
-                double pesoMaximo  = Double.parseDouble(dados[4]);
+                double pesoMaximo = Double.parseDouble(dados[4]);
                 boolean climatizado = Boolean.parseBoolean(dados[5]);
-                DroneCargaViva droneCargaViva = new DroneCargaViva(codigo, custoFixo, autonomia, pesoMaximo,climatizado);
+                DroneCargaViva droneCargaViva = new DroneCargaViva(codigo, custoFixo, autonomia, pesoMaximo, climatizado);
                 drones.addDrone(droneCargaViva);
-                writer.println(droneCargaViva.geraCSV());
-
+                areaTexto.append("Drone Carga Viva salvo: " + droneCargaViva.geraCSV() + "\n");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            writer.printf("Erro: Dados insuficientes na linha '%s'%n", line);
+            areaTexto.append("Erro: Dados insuficientes na linha '" + line + "'\n");
         } catch (NumberFormatException e) {
-            writer.printf("Erro: Formato numérico inválido na linha '%s'%n", line);
+            areaTexto.append("Erro: Formato numérico inválido na linha '" + line + "'\n");
         } catch (Exception e) {
-            writer.printf("Erro inesperado ao processar a linha '%s': %s%n", line, e.getMessage());
+            areaTexto.append("Erro inesperado ao processar a linha '" + line + "': " + e.getMessage() + "\n");
         }
     }
 
-    public void leLinhasTexto() {
-        Path path = Paths.get("entrada.csv");
+
+    public void leLinhasTexto(String nomeArquivo) {
+        Path path = Paths.get(nomeArquivo);
         try (BufferedReader reader = Files.newBufferedReader(path, Charset.defaultCharset())) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -103,7 +139,10 @@ public class TelaDadosES {
                 SalvarDrone(line);
             }
         } catch (Exception e) {
-            writer.printf("Erro de E/S: %s%n", e);
+            System.err.printf("Erro de E/S ao ler o arquivo: %s%n", e.getMessage());
+            areaTexto.setForeground(Color.RED);
+            areaTexto.append("Erro ao carregar os dados do arquivo: " + e.getMessage() + "\n");
         }
     }
+
 }

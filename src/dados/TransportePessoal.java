@@ -24,5 +24,12 @@ public class TransportePessoal extends Transporte {
 		return 0;
 	}
 
+	public String geraCSV(){
+		return String.format("1;%s;%d",super.geraCSV(),getQtdPessoas());
+	}
+
+	public int getQtdPessoas() {
+		return qtdPessoas;
+	}
 
 }

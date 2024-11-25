@@ -23,4 +23,13 @@ public class TransporteCargaInanimada extends Transporte {
 	public double calculaCusto() {
 		return 0.0;
 	}
+
+	public String geraCSV(){
+		return String.format("2;%s;%b",super.geraCSV(),getCargaPerigosa());
+	}
+
+	public boolean getCargaPerigosa() {
+		return cargaPerigosa;
+	}
+
 }

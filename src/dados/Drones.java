@@ -54,5 +54,9 @@ public class Drones {
         }
         return sb.toString();
     }
+    public ArrayList<Drone> getListaDrones() {
+        return drones;
+    }
+
 
 }

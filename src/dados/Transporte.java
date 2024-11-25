@@ -99,4 +99,16 @@ public abstract class Transporte {
 				
 				""",peso, numero,nomeCliente,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,situacao);
 	}
+
+	public String getNomeCliente(){
+		return nomeCliente;
+	}
+
+	public String getDescricao(){
+		return descricao;
+	}
+
+	public String geraCSV(){
+		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f;%s",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino(),getSituacao());
+	}
 }
