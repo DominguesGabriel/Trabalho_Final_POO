@@ -36,8 +36,8 @@ public class TelaDadosES {
         salvarDadosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nome = nomeArquivo.getText();
-                if (nome.trim().isEmpty()) {
+                String nome = nomeArquivo.getText().trim();
+                if (nome.isEmpty()) {
                     areaTexto.setForeground(Color.RED);
                     areaTexto.append("Erro: Por favor, insira o nome do arquivo.\n");
                     return;
@@ -86,6 +86,32 @@ public class TelaDadosES {
                 janela.setVisible(false);
             }
         });
+        carregarDadosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = nomeArquivo.getText().trim();
+                if (nome.isEmpty()) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: Por favor, insira o nome do arquivo.\n");
+                    return;
+                }
+                if (!nome.matches("[a-zA-Z0-9._-]+")) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: O nome do arquivo contém caracteres inválidos.\n");
+                    return;
+                }
+
+                Path path = Paths.get(nome + ".csv");
+                if (!Files.exists(path)) {
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.append("Erro: O arquivo '" + nome + ".csv' não foi encontrado.\n");
+                    return;
+                }
+
+                leLinhasTexto(nome + ".csv");
+            }
+        });
+
     }
     private void fecharArquivo() {
         if (writer != null) {
@@ -93,7 +119,6 @@ public class TelaDadosES {
             writer = null; // Limpa a referência para evitar reutilização
         }
     }
-
 
     public void SalvarDrone(String line) {
         try {
