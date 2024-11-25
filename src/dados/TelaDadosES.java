@@ -58,12 +58,10 @@ public class TelaDadosES {
                 try (BufferedWriter bw = Files.newBufferedWriter(path, Charset.defaultCharset());
                      PrintWriter writer = new PrintWriter(bw)) {  // Criado dentro do try-with-resources
 
-                    writer.println("DRONES");
                     writer.println("tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado");
                     for (Drone drone : drones.getListaDrones()) {
                         writer.println(drone.geraCSV());
                     }
-                    writer.println("TRANSPORTES");
                     writer.println("tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax");
                     for (Transporte t : transportes.getLista()) {
                         writer.println(t.geraCSV());
@@ -133,7 +131,7 @@ public class TelaDadosES {
                 int quantidadeMaximaPessoas = Integer.parseInt(dados[4]);
                 DronePessoal dronePessoal = new DronePessoal(codigo, custoFixo, autonomia, quantidadeMaximaPessoas);
                 drones.addDrone(dronePessoal);
-                areaTexto.append("Drone Pessoal salvo: " + dronePessoal.geraCSV() + "\n");
+               // areaTexto.append("Drone Pessoal salvo: " + dronePessoal.geraCSV() + "\n");
             } else if (tipo == 2) {
                 // Drone de Carga Inanimada
                 double custoFixo = Double.parseDouble(dados[2]);
@@ -142,7 +140,7 @@ public class TelaDadosES {
                 boolean protecao = Boolean.parseBoolean(dados[5]);
                 DroneCargaInanimada droneCargaInanimada = new DroneCargaInanimada(codigo, custoFixo, autonomia, pesoMaximo, protecao);
                 drones.addDrone(droneCargaInanimada);
-                areaTexto.append("Drone Carga Inanimada salvo: " + droneCargaInanimada.geraCSV() + "\n");
+                //areaTexto.append("Drone Carga Inanimada salvo: " + droneCargaInanimada.geraCSV() + "\n");
             } else if (tipo == 3) {
                 // Drone de Carga Viva
                 double custoFixo = Double.parseDouble(dados[2]);
@@ -151,7 +149,7 @@ public class TelaDadosES {
                 boolean climatizado = Boolean.parseBoolean(dados[5]);
                 DroneCargaViva droneCargaViva = new DroneCargaViva(codigo, custoFixo, autonomia, pesoMaximo, climatizado);
                 drones.addDrone(droneCargaViva);
-                areaTexto.append("Drone Carga Viva salvo: " + droneCargaViva.geraCSV() + "\n");
+                //areaTexto.append("Drone Carga Viva salvo: " + droneCargaViva.geraCSV() + "\n");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             areaTexto.append("Erro: Dados insuficientes na linha '" + line + "'\n");
