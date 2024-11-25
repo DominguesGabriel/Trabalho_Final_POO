@@ -59,12 +59,12 @@ public class TelaDadosES {
                      PrintWriter writer = new PrintWriter(bw)) {  // Criado dentro do try-with-resources
 
                     writer.println("DRONES");
-                    writer.println("tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado\n");
+                    writer.println("tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado");
                     for (Drone drone : drones.getListaDrones()) {
                         writer.println(drone.geraCSV());
                     }
                     writer.println("TRANSPORTES");
-                    writer.println("tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax\n");
+                    writer.println("tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax");
                     for (Transporte t : transportes.getLista()) {
                         writer.println(t.geraCSV());
                     }
