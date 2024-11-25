@@ -22,7 +22,7 @@ public class TelaGerenciamentoTransporte {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int numero = Integer.parseInt(textField1.getText());
-                    Transporte t = buscarTransportePorCodigo(numero); // Busca o transporte pelo código
+                    Transporte t = buscarTransportePorCodigo(numero);
 
                     if (t == null) {
                         areaTexto.setText("Transporte não encontrado!");
