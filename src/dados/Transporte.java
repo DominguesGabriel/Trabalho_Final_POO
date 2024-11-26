@@ -87,17 +87,17 @@ public abstract class Transporte {
 	public String toString() {
 		return String.format("""
 				-------------------------------------------------------------
+				Nome Cliente: %s
+				Número do transporte: %d
 				Peso: %.2f
-				Numero: %d
-				NomeCliente: %s
-				Descricao: %s
-				LatitudeOrigem: %.2f
-				LatitudeDestino: %.2f
-				LongitudeOrigem: %.2f
-				LongitudeDestino: %.2f
+				Descrição: %s
+				Latitude de Origem: %.2f
+				Latitude de Destino: %.2f
+				Longitude de Origem: %.2f
+				Longitude de Destino: %.2f
 				Situação: %s
 				
-				""",peso, numero,nomeCliente,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,situacao);
+				""",nomeCliente, numero,peso,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,situacao);
 	}
 
 	public String getNomeCliente(){

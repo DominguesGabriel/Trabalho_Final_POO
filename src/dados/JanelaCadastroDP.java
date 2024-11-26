@@ -11,7 +11,6 @@ public class JanelaCadastroDP extends JDialog {
         this.add(telaDronePessoal.getPainel());
         this.setSize(850,500);
         this.setTitle("Cadastro de dados.Drones Pessoais");
-        //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setModal(true);
         this.setVisible(true);
     }
