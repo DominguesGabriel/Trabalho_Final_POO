@@ -39,19 +39,19 @@ public class TelaDadosES {
                 String nome = nomeArquivo.getText().trim();
                 if (nome.isEmpty()) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: Por favor, insira o nome do arquivo.\n");
+                    areaTexto.setText("Erro: Por favor, insira o nome do arquivo.\n");
                     return;
                 }
                 if (!nome.matches("[a-zA-Z0-9._-]+")) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: O nome do arquivo contém caracteres inválidos.\n");
+                    areaTexto.setText("Erro: O nome do arquivo contém caracteres inválidos.\n");
                     return;
                 }
 
                 Path path = Paths.get(nome + ".csv");
                 if (Files.exists(path)) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: O arquivo já existe. Escolha outro nome ou exclua o arquivo.\n");
+                    areaTexto.setText("Erro: O arquivo já existe. Escolha outro nome ou exclua o arquivo.\n");
                     return;
                 }
 
@@ -68,11 +68,11 @@ public class TelaDadosES {
                     }
 
                     areaTexto.setForeground(Color.GREEN);
-                    areaTexto.append("Dados salvos com sucesso no arquivo: " + nome + ".csv\n");
+                    areaTexto.setText("Dados salvos com sucesso no arquivo: " + nome + ".csv\n");
 
                 } catch (Exception exception) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro ao salvar os dados: " + exception.getMessage() + "\n");
+                    areaTexto.setText("Erro ao salvar os dados: " + exception.getMessage() + "\n");
                 }
                 //leLinhasTexto();
                 fecharArquivo();
@@ -90,23 +90,25 @@ public class TelaDadosES {
                 String nome = nomeArquivo.getText().trim();
                 if (nome.isEmpty()) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: Por favor, insira o nome do arquivo.\n");
+                    areaTexto.setText("Erro: Por favor, insira o nome do arquivo.\n");
                     return;
                 }
                 if (!nome.matches("[a-zA-Z0-9._-]+")) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: O nome do arquivo contém caracteres inválidos.\n");
+                    areaTexto.setText("Erro: O nome do arquivo contém caracteres inválidos.\n");
                     return;
                 }
 
                 Path path = Paths.get(nome + ".csv");
                 if (!Files.exists(path)) {
                     areaTexto.setForeground(Color.RED);
-                    areaTexto.append("Erro: O arquivo '" + nome + ".csv' não foi encontrado.\n");
+                    areaTexto.setText("Erro: O arquivo '" + nome + ".csv' não foi encontrado.\n");
                     return;
                 }
 
                 leLinhasTexto(nome + ".csv");
+                areaTexto.setForeground(Color.GREEN);
+                areaTexto.setText("Dados carregados com sucesso no arquivo: " + nome + ".csv\n");
             }
         });
 
@@ -124,15 +126,14 @@ public class TelaDadosES {
             int tipo = Integer.parseInt(dados[0]);
             int codigo = Integer.parseInt(dados[1]);
 
-            if (tipo == 1) {
+            if (tipo == 1 && dados.length == 5) {
                 // Drone Pessoal
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
                 int quantidadeMaximaPessoas = Integer.parseInt(dados[4]);
                 DronePessoal dronePessoal = new DronePessoal(codigo, custoFixo, autonomia, quantidadeMaximaPessoas);
                 drones.addDrone(dronePessoal);
-               // areaTexto.append("Drone Pessoal salvo: " + dronePessoal.geraCSV() + "\n");
-            } else if (tipo == 2) {
+            } else if (tipo == 2 && dados.length == 6) {
                 // Drone de Carga Inanimada
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
@@ -140,8 +141,7 @@ public class TelaDadosES {
                 boolean protecao = Boolean.parseBoolean(dados[5]);
                 DroneCargaInanimada droneCargaInanimada = new DroneCargaInanimada(codigo, custoFixo, autonomia, pesoMaximo, protecao);
                 drones.addDrone(droneCargaInanimada);
-                //areaTexto.append("Drone Carga Inanimada salvo: " + droneCargaInanimada.geraCSV() + "\n");
-            } else if (tipo == 3) {
+            } else if (tipo == 3 && dados.length == 6) {
                 // Drone de Carga Viva
                 double custoFixo = Double.parseDouble(dados[2]);
                 double autonomia = Double.parseDouble(dados[3]);
@@ -149,14 +149,51 @@ public class TelaDadosES {
                 boolean climatizado = Boolean.parseBoolean(dados[5]);
                 DroneCargaViva droneCargaViva = new DroneCargaViva(codigo, custoFixo, autonomia, pesoMaximo, climatizado);
                 drones.addDrone(droneCargaViva);
-                //areaTexto.append("Drone Carga Viva salvo: " + droneCargaViva.geraCSV() + "\n");
+            }
+            else if (tipo == 1 && dados.length == 10) {
+                //transporte pessoal
+                String nomeCliente = dados[2];
+                String descricao = dados[3];
+                double peso = Double.parseDouble(dados[4]);
+                double latitudeOrigem = Double.parseDouble(dados[5]);
+                double latitudeDestino = Double.parseDouble(dados[6]);
+                double longitudeOrigem = Double.parseDouble(dados[7]);
+                double longitudeDestino = Double.parseDouble(dados[8]);
+                int quantidadePessoas = Integer.parseInt(dados[9]);
+                TransportePessoal transportePessoal = new TransportePessoal(codigo,nomeCliente,descricao,peso,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,quantidadePessoas);
+                transportes.addTransporte(transportePessoal);
+            }else if(tipo == 2 && dados.length == 10) {
+                //transporte carga inanimada
+                String nomeCliente = dados[2];
+                String descricao = dados[3];
+                double peso = Double.parseDouble(dados[4]);
+                double latitudeOrigem = Double.parseDouble(dados[5]);
+                double latitudeDestino = Double.parseDouble(dados[6]);
+                double longitudeOrigem = Double.parseDouble(dados[7]);
+                double longitudeDestino = Double.parseDouble(dados[8]);
+                boolean cargaPerigosa = Boolean.parseBoolean(dados[9]);
+                TransporteCargaInanimada transporteCargaInanimada = new TransporteCargaInanimada(codigo,nomeCliente,descricao,peso,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,cargaPerigosa);
+                transportes.addTransporte(transporteCargaInanimada);
+            }else if(tipo == 3 && dados.length == 11) {
+                //transporte carga viva
+                String nomeCliente = dados[2];
+                String descricao = dados[3];
+                double peso = Double.parseDouble(dados[4]);
+                double latitudeOrigem = Double.parseDouble(dados[5]);
+                double latitudeDestino = Double.parseDouble(dados[6]);
+                double longitudeOrigem = Double.parseDouble(dados[7]);
+                double longitudeDestino = Double.parseDouble(dados[8]);
+                double temperaturaMinima = Double.parseDouble(dados[9]);
+                double temperaturaMaxima = Double.parseDouble(dados[10]);
+                TransporteCargaViva transporteCargaViva = new TransporteCargaViva(codigo,nomeCliente,descricao,peso,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,temperaturaMinima,temperaturaMaxima);
+                transportes.addTransporte(transporteCargaViva);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            areaTexto.append("Erro: Dados insuficientes na linha '" + line + "'\n");
+            areaTexto.setText("Erro: Dados insuficientes na linha '" + line + "'\n");
         } catch (NumberFormatException e) {
-            areaTexto.append("Erro: Formato numérico inválido na linha '" + line + "'\n");
+            areaTexto.setText("Erro: Formato numérico inválido na linha '" + line + "'\n");
         } catch (Exception e) {
-            areaTexto.append("Erro inesperado ao processar a linha '" + line + "': " + e.getMessage() + "\n");
+            areaTexto.setText("Erro inesperado ao processar a linha '" + line + "': " + e.getMessage() + "\n");
         }
     }
 
@@ -172,9 +209,8 @@ public class TelaDadosES {
                 SalvarDrone(line);
             }
         } catch (Exception e) {
-            System.err.printf("Erro de E/S ao ler o arquivo: %s%n", e.getMessage());
             areaTexto.setForeground(Color.RED);
-            areaTexto.append("Erro ao carregar os dados do arquivo: " + e.getMessage() + "\n");
+            areaTexto.setText("Erro ao carregar os dados do arquivo: " + e.getMessage() + "\n");
         }
     }
 

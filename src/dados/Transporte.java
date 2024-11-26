@@ -109,6 +109,6 @@ public abstract class Transporte {
 	}
 
 	public String geraCSV(){
-		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f;%s",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino(),getSituacao());
+		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f;",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino());
 	}
 }
