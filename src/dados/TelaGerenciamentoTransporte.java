@@ -55,6 +55,8 @@ public class TelaGerenciamentoTransporte {
                             break;
                         default:
                             areaTexto.append("\nEstado inválido!");
+
+
                             return;
                     }
 
@@ -64,14 +66,6 @@ public class TelaGerenciamentoTransporte {
                 }
             }
         });
-
-        voltarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                janela.setVisible(false); // Fecha a janela ao clicar no botão "Voltar"
-            }
-        });
-
         processarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +85,12 @@ public class TelaGerenciamentoTransporte {
             }
         });
 
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                janela.setVisible(false); // Fecha a janela ao clicar no botão "Voltar"
+            }
+        });
 
     }
 

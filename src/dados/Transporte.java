@@ -22,6 +22,8 @@ public abstract class Transporte {
 
 	private Estado Situacao;
 
+	private Drone droneAlocado;
+
 	private Estado situacao;
 	public Transporte(int numero, String nomeCliente,String descricao, double peso, double latitudeOrigem, double latitudeDestino, double longitudeOrigem, double longitudeDestino) {
 		this.numero = numero;
@@ -107,6 +109,8 @@ public abstract class Transporte {
 	public String getDescricao(){
 		return descricao;
 	}
+
+	public Drone getDroneAlocado(){ return droneAlocado;}
 
 	public String geraCSV(){
 		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f;",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino());

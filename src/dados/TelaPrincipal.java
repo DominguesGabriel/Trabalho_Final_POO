@@ -72,12 +72,25 @@ public class TelaPrincipal {
                     sb.append("Transportes cadastrados:\n");
                     for (Transporte transporte : transportes) {
                         sb.append(transporte.toString()).append("\n");
+
+                        // Verifica se o transporte está alocado a um drone
+                        if (transporte.getSituacao().equals(Estado.ALOCADO)) {
+                            Drone droneAlocado = transporte.getDroneAlocado(); // Supondo que exista um método getDroneAlocado()
+                            if (droneAlocado != null) {
+                                sb.append("Drone alocado: ").append(droneAlocado.toString()).append("\n");
+                                sb.append("Custo final do transporte: ").append(transporte.calculaCusto()).append("\n");
+                            } else {
+                                sb.append("Drone alocado não encontrado.\n");
+                            }
+                        }
+                        sb.append("\n"); // Linha em branco entre transportes
                     }
                 }
 
                 textArea1.setText(sb.toString()); // Define o texto da JTextArea
             }
         });
+
         relatorioGeralButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
