@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TelaDadosES {
     private JTextArea areaTexto;
@@ -24,6 +26,7 @@ public class TelaDadosES {
     private PrintWriter writer;
     private Drones drones;
     private Administracao transportes;
+    private Queue<Transporte> filaTransportes;
 
     public TelaDadosES(Drones drones, Administracao transportes, JanelaDadosES janela) {
         areaTexto.setEditable(false);
@@ -32,6 +35,7 @@ public class TelaDadosES {
         Locale.setDefault(Locale.ENGLISH);
         this.drones = drones;
         this.transportes = transportes;
+        filaTransportes = new LinkedList<Transporte>();
 
         salvarDadosButton.addActionListener(new ActionListener() {
             @Override
@@ -74,7 +78,6 @@ public class TelaDadosES {
                     areaTexto.setForeground(Color.RED);
                     areaTexto.setText("Erro ao salvar os dados: " + exception.getMessage() + "\n");
                 }
-                //leLinhasTexto();
                 fecharArquivo();
             }
         });
@@ -112,6 +115,12 @@ public class TelaDadosES {
             }
         });
 
+        leituraSimulaçãoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
     private void fecharArquivo() {
         if (writer != null) {
@@ -120,7 +129,7 @@ public class TelaDadosES {
         }
     }
 
-    public void SalvarDrone(String line) {
+    public void SalvarDados(String line) {
         try {
             String[] dados = line.split(";");
             int tipo = Integer.parseInt(dados[0]);
@@ -206,7 +215,7 @@ public class TelaDadosES {
                 if (line.startsWith("tipo")) {
                     continue; // Ignora o cabeçalho
                 }
-                SalvarDrone(line);
+                SalvarDados(line);
             }
         } catch (Exception e) {
             areaTexto.setForeground(Color.RED);
