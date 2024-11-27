@@ -37,33 +37,33 @@ public class telaTransporte {
         CADASTRARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Transporte transporte =null;
+                Transporte transporte = null ;
                 TransporteCargaInanimada transporteCarga;
-                int peso = Integer.parseInt(textFieldPeso.getText());
-                int numero = Integer.parseInt(textFieldNumero.getText());
-                String nomeCliente = textFieldCliente.getText();
-                String descricao = textFieldDesc.getText();
-                double latOrigem = Double.parseDouble(textFieldLatOr.getText());
-                double latDestino = Double.parseDouble(textFieldLatDest.getText());
-                double longOrigem = Double.parseDouble(textFieldLongOr.getText());
-                double longDestino = Double.parseDouble(textFieldLongDest.getText());
                 try{
+                        int peso = Integer.parseInt(textFieldPeso.getText());
+                        int numero = Integer.parseInt(textFieldNumero.getText());
+                        String nomeCliente = textFieldCliente.getText();
+                        String descricao = textFieldDesc.getText();
+                        double latOrigem = Double.parseDouble(textFieldLatOr.getText());
+                        double latDestino = Double.parseDouble(textFieldLatDest.getText());
+                        double longOrigem = Double.parseDouble(textFieldLongOr.getText());
+                        double longDestino = Double.parseDouble(textFieldLongDest.getText());
 
-                            if (tipoTransporte.getSelectedItem().toString().equals("Pessoal")) {
-                                int qtdPessoas = Integer.parseInt(textFieldQtdPessoas.getText());
-                                transporte = new TransportePessoal(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, qtdPessoas);
-                            } else if (tipoTransporte.getSelectedItem().toString().equals("Carga Viva")) {
-                                double tempMaxima = Double.parseDouble(textFieldTempMax.getText());
-                                double tempMinima = Double.parseDouble(textFieldTempMin.getText());
-                                transporte = new TransporteCargaViva(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, tempMinima, tempMaxima);
+                    if (tipoTransporte.getSelectedItem().toString().equals("Pessoal")) {
+                        int qtdPessoas = Integer.parseInt(textFieldQtdPessoas.getText());
+                        transporte = new TransportePessoal(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, qtdPessoas);
+                    } else if (tipoTransporte.getSelectedItem().toString().equals("Carga Viva")) {
+                        double tempMaxima = Double.parseDouble(textFieldTempMax.getText());
+                        double tempMinima = Double.parseDouble(textFieldTempMin.getText());
+                        transporte = new TransporteCargaViva(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, tempMinima, tempMaxima);
 
-                            } else if (tipoTransporte.getSelectedItem().toString().equals("Carga Inanimada")) {
-                                if (trueCheckBox.isSelected()) {
-                                    transporte = new TransporteCargaInanimada(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, true);
-                                } else {
-                                    transporte = new TransporteCargaInanimada(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, false);
-                                }
-                            }
+                    } else if (tipoTransporte.getSelectedItem().toString().equals("Carga Inanimada")) {
+                        if (trueCheckBox.isSelected()) {
+                            transporte = new TransporteCargaInanimada(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, true);
+                        } else {
+                            transporte = new TransporteCargaInanimada(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, false);
+                        }
+                    }
 
                     if (!adm.addTransporte(transporte)) {
                         campoMensagem.setText("Erro: Já existe um transporte com o código informado!");
@@ -78,6 +78,10 @@ public class telaTransporte {
                 }catch(Exception ex){
                     campoMensagem.setText("Erro: certifique-se de selecionar o tipo de carga que desejas cadastrar!" );
                 }
+                if (transporte == null) {
+                    campoMensagem.setText("Erro: Não foi possível criar o transporte. Verifique os dados.");
+                    return;
+                }
                 if (transporte.getNumero() <= 0 ) {
                     campoMensagem.setText("Erro: Número de transporte inválido!");
                 }
@@ -85,10 +89,15 @@ public class telaTransporte {
                     campoMensagem.setText("Erro: Peso da carga inválido!");
                 }
                 if (tipoTransporte.getSelectedItem().toString().equals("Pessoal")) {
+
                     if (textFieldQtdPessoas.getText() == null || textFieldQtdPessoas.getText().equals("")) {
                         campoMensagem.setText("Erro: O campo 'Quantidade de Pessoas' precisa ser preenchido!");
                         return;
+
+                    }else if(!textFieldTempMin.getText().equals("") || !textFieldTempMin.getText().equals("") && trueCheckBox.isSelected() || falseCheckBox.isSelected()) {
+                        campoMensagem.setText("Erro: Apenas o campo 'Quantidade de Pessoas' precisa ser preenchido!");
                     }
+
                 }else if(tipoTransporte.getSelectedItem().toString().equals("Carga Viva")){
                     if (textFieldTempMin.equals("") || textFieldTempMax.equals("")) {
                         campoMensagem.setText("Erro: Os campos de temperatura mínima e máxima devem ser preenchidos!");

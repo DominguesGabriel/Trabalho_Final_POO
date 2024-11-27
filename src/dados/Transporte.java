@@ -1,6 +1,5 @@
 package dados;
 
-import java.util.ArrayList;
 
 public abstract class Transporte {
 
@@ -20,11 +19,10 @@ public abstract class Transporte {
 
 	private double longitudeDestino;
 
-	private Estado Situacao;
-
 	private Drone droneAlocado;
 
 	private Estado situacao;
+
 	public Transporte(int numero, String nomeCliente,String descricao, double peso, double latitudeOrigem, double latitudeDestino, double longitudeOrigem, double longitudeDestino) {
 		this.numero = numero;
 		this.nomeCliente = nomeCliente;
@@ -34,7 +32,7 @@ public abstract class Transporte {
 		this.latitudeDestino = latitudeDestino;
 		this.longitudeOrigem = longitudeOrigem;
 		this.longitudeDestino = longitudeDestino;
-		this.Situacao = Estado.PENDENTE;
+		this.situacao = Estado.PENDENTE;
 	}
 	public int getNumero() {
 		return numero;
@@ -84,6 +82,13 @@ public abstract class Transporte {
 
 		return raioTerraKm * c;
 	}
+	public void adcDrone(Drone drone){
+		this.droneAlocado = drone; // Associa o drone ao transporte
+		this.situacao = Estado.ALOCADO; // Atualiza o estado do transporte para ALOCADO
+		drone.setAlocado(true); // Marca o drone como alocado
+		drone.setTransporte(this);
+
+	}
 
 
 	public String toString() {
@@ -97,9 +102,9 @@ public abstract class Transporte {
 				Latitude de Destino: %.2f
 				Longitude de Origem: %.2f
 				Longitude de Destino: %.2f
+				Custo Final: %.2f
 				Situação: %s
-				
-				""",nomeCliente, numero,peso,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,situacao);
+				""",nomeCliente, numero,peso,descricao,latitudeOrigem,latitudeDestino,longitudeOrigem,longitudeDestino,calculaCusto(),situacao);
 	}
 
 	public String getNomeCliente(){

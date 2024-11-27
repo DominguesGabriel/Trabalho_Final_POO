@@ -96,14 +96,14 @@ public class TelaGerenciamentoTransporte {
 
 
     public Transporte buscarTransportePorCodigo(int numero) {
-        if (adm == null) { // Verifica se a administração foi inicializada
+        if (adm == null) {
             throw new IllegalStateException("A instância de Administracao não foi inicializada.");
         }
 
 
         for (Transporte t : adm.getLista()) {
             if (t.getNumero() == numero) {
-                return t; // Retorna o transporte encontrado
+                return t;
             }
         }
         return null;

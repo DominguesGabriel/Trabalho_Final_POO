@@ -66,29 +66,38 @@ public class TelaPrincipal {
                 StringBuilder sb = new StringBuilder();
                 boolean algumProcessado = false;
 
-                for (Transporte t : adm.getLista()) {
-                    if (t.getSituacao().equals(Estado.PENDENTE)) {
-                        boolean alocado = false;
+                if (adm.getLista().isEmpty()) {
+                    sb.append("Nenhum transporte cadastrado.\n");
+                } else {
+                    for (Transporte t : adm.getLista()) {
+                        sb.append("Transporte ").append(t.getNumero()).append(" - ").append(t.getDescricao()).append("\n")
+                                .append("Peso: ").append(t.getPeso()).append(" kg\n")
+                                .append("Origem: (").append(t.getLatitudeOrigem()).append(", ").append(t.getLongitudeOrigem()).append(")\n")
+                                .append("Destino: (").append(t.getLatitudeDestino()).append(", ").append(t.getLongitudeDestino()).append(")\n")
+                                .append("Situação: ").append(t.getSituacao()).append("\n");
 
-                        for (Drone d : drones.getListaDrones()) {
-                            if (d.isDisponivel(t)) { // Verifica se o drone está disponível
-                                d.setAlocado(true); // Marca o drone como alocado
-                                t.setSituacao(Estado.ALOCADO); // Atualiza o estado do transporte
-                                sb.append("Transporte ").append(t.getNumero()).append(" alocado ao drone ").append(d.getCodigo()).append("\n");
-                                alocado = true;
-                                algumProcessado = true;
-                                break; // Sai do loop de drones
+                        if (t.getSituacao().equals(Estado.ALOCADO)) {
+                            Drone droneAlocado = getDroneByTransporte(t);
+                            if(droneAlocado != null) {
+                                for (Drone d : drones.getListaDrones()) {
+                                    if (d.isDisponivel(t)) {
+                                        t.adcDrone(d);
+                                        sb.append("Drone alocado: ").append(d.getCodigo()).append("\n")
+                                                .append("Custo final do transporte: ").append(t.calculaCusto()).append("\n");
+                                    }
+                                }
                             }
-                        }
 
-                        if (!alocado) {
-                            sb.append("Transporte ").append(t.getNumero()).append(" não pôde ser alocado.\n");
                         }
+                        sb.append("Drone alocado não encontrado.\n");
+
+                        sb.append("-------------------------------------------------\n");
+                        algumProcessado = true;
                     }
                 }
 
                 if (!algumProcessado) {
-                    sb.append("Nenhum transporte pendente para processar.\n");
+                    sb.append("Nenhum transporte processado.\n");
                 }
 
                 textArea1.setText(sb.toString());
@@ -104,10 +113,8 @@ public class TelaPrincipal {
                 StringBuilder sb = new StringBuilder();
 
                 if (drones1.isEmpty() && transportes.isEmpty()) {
-                    // Caso ambas as listas estejam vazias
                     sb.append("Nenhum drone e nenhum transporte cadastrado.");
                 } else {
-                    // Caso existam elementos
                     if (!drones1.isEmpty()) {
                         sb.append("Drones cadastrados:\n");
                         for (Drone drone : drones1) {
@@ -120,6 +127,7 @@ public class TelaPrincipal {
                     if (!transportes.isEmpty()) {
                         sb.append("\nTransportes cadastrados:\n");
                         for (Transporte transporte : transportes) {
+
                             sb.append(transporte.toString()).append("\n");
                         }
                     } else {
@@ -132,6 +140,14 @@ public class TelaPrincipal {
             }
         });
 
+    }
+    private Drone getDroneByTransporte(Transporte t) {
+        for (Drone d : drones.getListaDrones()) {
+            if (d.isAlocado() && d.getTransporte() == t) {
+                return d;
+            }
+        }
+        return null;
     }
 
         public JPanel getPainel() {

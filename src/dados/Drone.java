@@ -6,16 +6,23 @@ public abstract class Drone {
     private int codigo;
     private double custoFixo;
     private double autonomia;
+    private Transporte transporteAlocado;  // Atributo para armazenar o transporte alocado
 
     public Drone(int codigo, double custoFixo, double autonomia) {
         setCodigo(codigo);
         setCustoFixo(custoFixo);
         setAutonomia(autonomia);
         this.alocado = false;
+        this.transporteAlocado = null; // Inicializa sem transporte alocado
     }
-    public boolean isAlocado() { return alocado; }
 
-    public void setAlocado(boolean alocado) { this.alocado = alocado; }
+    public boolean isAlocado() {
+        return alocado;
+    }
+
+    public void setAlocado(boolean alocado) {
+        this.alocado = alocado;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -45,13 +52,24 @@ public abstract class Drone {
 
     public abstract boolean isDisponivel(Transporte transporte);
 
+    // Método para obter o transporte alocado
+    public Transporte getTransporte() {
+        return transporteAlocado;
+    }
+
+    // Método para associar um transporte ao drone (quando alocado)
+    public void setTransporte(Transporte transporte) {
+        this.transporteAlocado = transporte;
+    }
+
     @Override
     public String toString() {
-        return  String.format("Codigo: %d\nCusto Fixo: %.2f\nAutonomia: %.2f",getCodigo(),
+        return String.format("Codigo: %d\nCusto Fixo: %.2f\nAutonomia: %.2f", getCodigo(),
                 getCustoFixo(),
                 getAutonomia());
     }
-    public String geraCSV(){
-        return String.format("%d;%.2f;%.2f",getCodigo(),getCustoFixo(),getAutonomia());
+
+    public String geraCSV() {
+        return String.format("%d;%.2f;%.2f", getCodigo(), getCustoFixo(), getAutonomia());
     }
 }

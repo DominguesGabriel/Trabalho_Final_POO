@@ -10,7 +10,7 @@ public abstract class DroneCarga extends Drone {
     @Override
     public boolean isDisponivel(Transporte transporte) {
         // Verifica se o drone está livre e se suporta o peso do transporte
-        return !isAlocado() && transporte.getPeso() <= pesoMaximo;
+        return !isAlocado() && transporte.getPeso() <= pesoMaximo ;
     }
 
     @Override
