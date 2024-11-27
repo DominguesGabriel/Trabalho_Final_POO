@@ -1,6 +1,7 @@
 package dados;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class DroneCargaCadastro {
@@ -106,18 +107,14 @@ public class DroneCargaCadastro {
         dados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                areaTexto.setText("");
-//                if (base.estaVazia()){
-//                    areaTexto.setText("AVISO! Nenhum drone de carga cadastrado.");
-//                }
-//                for (Drone d : base.getBaseDrones()){
-//                        if (d instanceof DroneCargaInanimada){
-//                            areaTexto.append("Drone de Carga Inanimada\n"+d.toString()+"\n\n");
-//                        }
-//                        else if (d instanceof DroneCargaViva){
-//                            areaTexto.append("Drone de Carga Viva\n" + d.toString()+"\n\n");
-//                        }
-//                }
+                areaTexto.setText("");
+                if(base.estaVazia()){
+                    areaTexto.setForeground(Color.RED);
+                    areaTexto.setText("Não há drones cadastrados.");
+                    return;
+                }
+                areaTexto.setForeground(Color.BLACK);
+                areaTexto.setText(base.imprimirDrones());
             }
         });
     }

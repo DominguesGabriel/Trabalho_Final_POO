@@ -15,7 +15,7 @@ public abstract class DroneCarga extends Drone {
 
     @Override
     public String toString() {
-        return String.format("%s\nPeso máximo: %.2f\n\n",
+        return String.format("%s\nPeso máximo: %.2f",
                 super.toString(),
                 getPesoMaximo());
     }
