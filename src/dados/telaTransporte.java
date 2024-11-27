@@ -32,8 +32,6 @@ public class telaTransporte {
 
     public telaTransporte (Administracao adm, JanelaTransporte janela) {
 
-
-
         CADASTRARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

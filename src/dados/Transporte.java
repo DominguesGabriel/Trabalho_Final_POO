@@ -4,24 +4,15 @@ package dados;
 public abstract class Transporte {
 
 	private int numero;
-
 	private String nomeCliente;
-
 	private String descricao;
-
 	private double peso;
-
 	private double latitudeOrigem;
-
 	private double latitudeDestino;
-
 	private double longitudeOrigem;
-
 	private double longitudeDestino;
-
-	private Drone droneAlocado;
-
 	private Estado situacao;
+	private Drone droneAlocado;
 
 	public Transporte(int numero, String nomeCliente,String descricao, double peso, double latitudeOrigem, double latitudeDestino, double longitudeOrigem, double longitudeDestino) {
 		this.numero = numero;
