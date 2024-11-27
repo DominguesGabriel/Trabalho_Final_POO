@@ -36,7 +36,7 @@ public class TelaDronePessoal {
 
                 for (int i = 0; i < dados.length; i++) {
                     if (dados[i].isEmpty()) {
-                        mensagemArea.setForeground(Color.RED);
+//                        mensagemArea.setForeground(Color.RED);
                         mensagemArea.setText("ERRO: Todos os campos devem ser preenchidos.");
                         return;
                     }
@@ -49,7 +49,7 @@ public class TelaDronePessoal {
                     autonomia = Double.parseDouble(dados[2]);
                     quantidade = Integer.parseInt(dados[3]);
                 } catch (NumberFormatException ex) {
-                    mensagemArea.setForeground(Color.RED);
+//                    mensagemArea.setForeground(Color.RED);
                     mensagemArea.setText("ERRO: Verifique os valores inseridos. Certifique-se de que o código e a quantidade são números inteiros, e o custo e a autonomia são números decimais.");
                     return;
                 }
@@ -58,7 +58,7 @@ public class TelaDronePessoal {
                 for (int i = 0; i < dados.length; i++) {
                     teste = Double.parseDouble(dados[i]);
                     if (teste <= 0) {
-                        mensagemArea.setForeground(Color.RED);
+//                        mensagemArea.setForeground(Color.RED);
                         mensagemArea.setText("ERRO:Impossível cadastrar valores negativos nos campos solicitados.");
                         return;
                     }
@@ -66,10 +66,10 @@ public class TelaDronePessoal {
 
                 Drone drone = new DronePessoal(codigo, custo, autonomia, quantidade);
                 if(drones.addDrone(drone)){
-                    mensagemArea.setForeground(Color.GREEN);
+//                    mensagemArea.setForeground(Color.GREEN);
                     mensagemArea.setText("Drone cadastrado com sucesso!");
                 }else{
-                    mensagemArea.setForeground(Color.RED);
+//                    mensagemArea.setForeground(Color.RED);
                     mensagemArea.setText("Falha ao cadastrar drone, o código deve ser único.");
                 }
                 limparCampos();
@@ -93,11 +93,11 @@ public class TelaDronePessoal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(drones.estaVazia()){
-                    mensagemArea.setForeground(Color.RED);
+//                    mensagemArea.setForeground(Color.RED);
                     mensagemArea.setText("Não há drones cadastrados.");
                     return;
                 }
-                mensagemArea.setForeground(Color.BLACK);
+//                mensagemArea.setForeground(Color.BLACK);
                 mensagemArea.setText(drones.imprimirDrones());
             }
         });
