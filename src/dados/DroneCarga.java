@@ -7,6 +7,11 @@ public abstract class DroneCarga extends Drone {
         super(codigo, custoFixo, autonomia);
         this.pesoMaximo = pesoMaximo;
     }
+    @Override
+    public boolean isDisponivel(Transporte transporte) {
+        // Verifica se o drone está livre e se suporta o peso do transporte
+        return !isAlocado() && transporte.getPeso() <= pesoMaximo;
+    }
 
     @Override
     public String toString() {

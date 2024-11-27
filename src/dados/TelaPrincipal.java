@@ -63,33 +63,38 @@ public class TelaPrincipal {
         mostrarTransportesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Transporte> transportes = adm.getLista();
                 StringBuilder sb = new StringBuilder();
+                boolean algumProcessado = false;
 
-                if (transportes.isEmpty()) {
-                    sb.append("Nenhum transporte cadastrado.");
-                } else {
-                    sb.append("Transportes cadastrados:\n");
-                    for (Transporte transporte : transportes) {
-                        sb.append(transporte.toString()).append("\n");
+                for (Transporte t : adm.getLista()) {
+                    if (t.getSituacao().equals(Estado.PENDENTE)) {
+                        boolean alocado = false;
 
-                        // Verifica se o transporte está alocado a um drone
-                        if (transporte.getSituacao().equals(Estado.ALOCADO)) {
-                            Drone droneAlocado = transporte.getDroneAlocado(); // Supondo que exista um método getDroneAlocado()
-                            if (droneAlocado != null) {
-                                sb.append("Drone alocado: ").append(droneAlocado.toString()).append("\n");
-                                sb.append("Custo final do transporte: ").append(transporte.calculaCusto()).append("\n");
-                            } else {
-                                sb.append("Drone alocado não encontrado.\n");
+                        for (Drone d : drones.getListaDrones()) {
+                            if (d.isDisponivel(t)) { // Verifica se o drone está disponível
+                                d.setAlocado(true); // Marca o drone como alocado
+                                t.setSituacao(Estado.ALOCADO); // Atualiza o estado do transporte
+                                sb.append("Transporte ").append(t.getNumero()).append(" alocado ao drone ").append(d.getCodigo()).append("\n");
+                                alocado = true;
+                                algumProcessado = true;
+                                break; // Sai do loop de drones
                             }
                         }
-                        sb.append("\n"); // Linha em branco entre transportes
+
+                        if (!alocado) {
+                            sb.append("Transporte ").append(t.getNumero()).append(" não pôde ser alocado.\n");
+                        }
                     }
                 }
 
-                textArea1.setText(sb.toString()); // Define o texto da JTextArea
+                if (!algumProcessado) {
+                    sb.append("Nenhum transporte pendente para processar.\n");
+                }
+
+                textArea1.setText(sb.toString());
             }
         });
+
 
         relatorioGeralButton.addActionListener(new ActionListener() {
             @Override

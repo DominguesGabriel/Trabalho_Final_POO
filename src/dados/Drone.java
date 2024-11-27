@@ -1,6 +1,8 @@
 package dados;
 
 public abstract class Drone {
+
+    private boolean alocado;
     private int codigo;
     private double custoFixo;
     private double autonomia;
@@ -9,7 +11,11 @@ public abstract class Drone {
         setCodigo(codigo);
         setCustoFixo(custoFixo);
         setAutonomia(autonomia);
+        this.alocado = false;
     }
+    public boolean isAlocado() { return alocado; }
+
+    public void setAlocado(boolean alocado) { this.alocado = alocado; }
 
     public int getCodigo() {
         return codigo;
@@ -36,6 +42,8 @@ public abstract class Drone {
     }
 
     public abstract double calculaCustoKm();
+
+    public abstract boolean isDisponivel(Transporte transporte);
 
     @Override
     public String toString() {
