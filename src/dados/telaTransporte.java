@@ -32,23 +32,21 @@ public class telaTransporte {
 
     public telaTransporte (Administracao adm, JanelaTransporte janela) {
 
-
-
         CADASTRARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Transporte transporte =null;
                 TransporteCargaInanimada transporteCarga;
-                int peso = Integer.parseInt(textFieldPeso.getText());
-                int numero = Integer.parseInt(textFieldNumero.getText());
-                String nomeCliente = textFieldCliente.getText();
-                String descricao = textFieldDesc.getText();
-                double latOrigem = Double.parseDouble(textFieldLatOr.getText());
-                double latDestino = Double.parseDouble(textFieldLatDest.getText());
-                double longOrigem = Double.parseDouble(textFieldLongOr.getText());
-                double longDestino = Double.parseDouble(textFieldLongDest.getText());
-                try{
 
+                try{
+                            int peso = Integer.parseInt(textFieldPeso.getText());
+                            int numero = Integer.parseInt(textFieldNumero.getText());
+                            String nomeCliente = textFieldCliente.getText();
+                            String descricao = textFieldDesc.getText();
+                            double latOrigem = Double.parseDouble(textFieldLatOr.getText());
+                            double latDestino = Double.parseDouble(textFieldLatDest.getText());
+                            double longOrigem = Double.parseDouble(textFieldLongOr.getText());
+                            double longDestino = Double.parseDouble(textFieldLongDest.getText());
                             if (tipoTransporte.getSelectedItem().toString().equals("Pessoal")) {
                                 int qtdPessoas = Integer.parseInt(textFieldQtdPessoas.getText());
                                 transporte = new TransportePessoal(numero, nomeCliente, descricao, peso, latOrigem, latDestino, longOrigem, longDestino, qtdPessoas);

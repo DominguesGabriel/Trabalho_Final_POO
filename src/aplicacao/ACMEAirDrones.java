@@ -13,7 +13,6 @@ import java.util.Locale;
 public class ACMEAirDrones {
     private Drones drones;
     private Administracao adm;
-    private PrintWriter writer;
 
     public void executar(){
         drones = new Drones();

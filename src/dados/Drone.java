@@ -2,10 +2,10 @@ package dados;
 
 public abstract class Drone {
 
-    private boolean alocado;
     private int codigo;
     private double custoFixo;
     private double autonomia;
+    private boolean alocado;
 
     public Drone(int codigo, double custoFixo, double autonomia) {
         setCodigo(codigo);

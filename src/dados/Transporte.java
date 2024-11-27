@@ -5,26 +5,16 @@ import java.util.ArrayList;
 public abstract class Transporte {
 
 	private int numero;
-
 	private String nomeCliente;
-
 	private String descricao;
-
 	private double peso;
-
 	private double latitudeOrigem;
-
 	private double latitudeDestino;
-
 	private double longitudeOrigem;
-
 	private double longitudeDestino;
-
-	private Estado Situacao;
-
+	private Estado situacao;
 	private Drone droneAlocado;
 
-	private Estado situacao;
 	public Transporte(int numero, String nomeCliente,String descricao, double peso, double latitudeOrigem, double latitudeDestino, double longitudeOrigem, double longitudeDestino) {
 		this.numero = numero;
 		this.nomeCliente = nomeCliente;
@@ -34,7 +24,7 @@ public abstract class Transporte {
 		this.latitudeDestino = latitudeDestino;
 		this.longitudeOrigem = longitudeOrigem;
 		this.longitudeDestino = longitudeDestino;
-		this.Situacao = Estado.PENDENTE;
+		this.situacao = Estado.PENDENTE;
 	}
 	public int getNumero() {
 		return numero;
