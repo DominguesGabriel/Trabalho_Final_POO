@@ -1,0 +1,11 @@
+tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado
+1;1;1.00;1.00;5
+1;11;10.00;100.00;5
+2;22;20.00;200.00;200.00;true
+3;33;30.00;400.00;300.00;true
+tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax
+3;222;Joana Santos;Pandas;250.30;-30.03;-51.23;-27.60;-48.55;;20.10;30.90
+1;111;Maria da Silva;Trabalho;140.10;-30.03;-51.16;-30.06;-51.17;;2
+2;333;Mario da Silva;Chocolate;150.20;-29.38;-50.87;-30.03;-51.16;;true
+1;1;AA;AA;1.00;0.00;0.00;50.00;50.00;;5
+1;9999;AA;AA;1.00;0.00;0.00;50.00;50.00;;5

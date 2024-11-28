@@ -1,0 +1,7 @@
+tipo;codigo;custofixo;autonomia;qtdmaxpessoas_pesomaximo;protecao_climatizado
+1;1;1.00;1.00;5
+1;11;10.00;100.00;5
+2;22;20.00;200.00;200.00;true
+3;33;30.00;400.00;300.00;true
+tipo;numero;nomecliente;descricao;peso;latorigem;longorigem;latdestino;longdestino;qtdpessoas_perigosa_tempmin;tempmax
+1;101010;JHSDKJAB;ASAS;1.00;1.00;11.00;1.00;1.00;9

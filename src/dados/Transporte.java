@@ -109,6 +109,6 @@ public abstract class Transporte {
 	public Drone getDroneAlocado(){ return droneAlocado;}
 
 	public String geraCSV(){
-		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f;",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino());
+		return String.format("%d;%s;%s;%.2f;%.2f;%.2f;%.2f;%.2f",getNumero(),getNomeCliente(),getDescricao(),getPeso(),getLatitudeOrigem(),getLatitudeDestino(),getLongitudeOrigem(),getLongitudeDestino());
 	}
 }
